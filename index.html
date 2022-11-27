@@ -1,56 +1,57 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firstpage</title>
     <style>
-        form{
-            border: 4mm ridge rgba(211, 220, 50, .6);
-            padding: 12px;
-            /* margin-right: 50px; */
-        }
-        table, td, th{
-            border: solid;
-            border-collapse: collapse;
-        }
-        
+      form {
+        border: 4mm ridge rgba(211, 220, 50, 0.6);
+        padding: 12px;
+        /* margin-right: 50px; */
+      }
+      table,
+      td,
+      th {
+        border: solid;
+        border-collapse: collapse;
+      }
     </style>
+    <script>
+      function get() {
+        let fname = document.getElementById("fname").value;
+        let lname = document.getElementById("lname").value;
+        let Rating = document.getElementById("Rating").value;
+        var x = document.getElementById("table").insertRow(1);
+        var y = x.insertCell(0);
+        var z = x.insertCell(1);
+        var r = x.insertCell(2);
+        y.innerHTML = fname;
+        z.innerHTML = lname;
+        r.innerHTML = Rating;
+      }
+    </script>
   </head>
   <body>
     <div id="entryform">
-        <form>
-           <label for="fname">First name:</label>
-            <input type="text" id="fname" name="fname"><br><br>
-            <label for="lname">Last name:</label>
-            <input type="text" id="lname" name="lname"><br>
-            <input type="submit" id="button" value="submit">
-          </form>
-          <div id="table">
-            <table>
-                <tr>
-                    <th>Movie Name</th>
-                    <th>Relese Date</th>
-                    <th>Ratting</th>
-                </tr>
-                <tr>
-                    <td>Avatar</td>
-                    <td>2079/10/23</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>Mahapurush</td>
-                    <td>2022/10/29</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>k ghar k dera</td>
-                    <td>2079/02/09</td>
-                    <td>6</td>
-                </tr>
-                
-            </table>
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="fname" /><br /><br />
+      <label for="lname">Last name:</label>
+      <input type="text" id="lname" name="lname" /><br />
+      <label for="Rating">Rating:</label>
+      <input type="number" id="Rating"name="Rating"/><br/>
+      <button onclick="get();">submit</button>
 
-          </div>
-
+      <div>
+        <table id="table">
+          <tr>
+            <th>Movie Name</th>
+            <th>Relese Date</th>
+            <th>Rating</th>
+          </tr>
+        </table>
+      </div>
     </div>
   </body>
 </html>
