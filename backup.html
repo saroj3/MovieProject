@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>addMovie</title>
+  </head>
+  <body>
+    <div id="entryform">
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="fname" /><br /><br />
+      <label for="lname">Last name:</label>
+      <input type="text" id="lname" name="lname" /><br /><br />
+      <label for="Rating">Rating:</label>
+      <input type="number" id="Rating" name="Rating" /><br /><br />
+      <button onclick="get();">submit</button>
+    </div>
+    <div>
+      <table id="table">
+        <tr>
+          <th>Movie Name</th>
+          <th>Relese Date</th>
+          <th>Rating</th>
+        </tr>
+      </table>
+    </div>
+    <script>
+     localStorage.setItem("movieList",{MovieName: "", ReleseDate: "", Rating: ""})
+
+      let localStorageValue = localStorage.getItem("movieList");
+      console.log(localStorageValue);
+      // localStorageValue = JSON.parse(localStorageValue);
+      var x = document.getElementById("table").insertRow(1);
+      var y = x.insertCell(0);
+      var z = x.insertCell(1);
+      var r = x.insertCell(2);
+      // y.innerHTML = localStorageValue[0].MovieName;
+      // z.innerHTML = localStorageValue[0].ReleseDate;
+      // r.innerHTML = localStorageValue[0].Rating;
+      
+      let saveInBrowser = (fname, lname, Rating) => {
+        let movieList = localStorage.getItem("movieList") || [];
+        console.log(movieList);
+        // movieList = JSON.parse(movieList);
+        movieList.push({ MovieName: fname, ReleseDate: lname, Rating: Rating });
+        localStorage.setItem("movieList", JSON.stringify(movieList));
+      };
+
+      function get() {
+        let firstName = document.getElementById("fname").value;
+        let lname = document.getElementById("lname").value;
+        let Rating = document.getElementById("Rating").value;
+        saveInBrowser(firstName, lname, Rating);
+      }
+
+      
+    </script>
+  </body>
+</html>
