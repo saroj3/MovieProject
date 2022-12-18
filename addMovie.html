@@ -18,24 +18,30 @@
     </div>
     <div>
       <table id="table">
+        <tbody>
         <tr>
           <th>Movie Name</th>
           <th>Relese Date</th>
           <th>Rating</th>
         </tr>
+        </tbody>
       </table>
     </div>
     <script>
       let get = () => {
+        let dataLength; // New value lastma rakhnako lagi data length +1 garnako lagi veriable banako 
         let firstName = document.getElementById("fname").value;
         let lastName = document.getElementById("lname").value;
         let rating = document.getElementById("Rating").value;
-        let Data = localStorage.getItem("Data");
+        let Data = localStorage.getItem("Data");  // data veriable banayera if function lagayeko yedi purano data null xa vane 
+        //  data rakhne thau matra banxa yedi purano value xa vane tyo data JavaScript le bujne garera rakheko
         if (Data == null) {
           Data = { data: [] };
         } else {
           Data = JSON.parse(Data);
+          dataLength = Data.data.length; // data ganeko katiota xa
         }
+        // data aaisakepaxi tyo datalai functionma push gareko (plus gareko)
         Data["data"].push({
           movieName: firstName,
           releaseDate: lastName,
@@ -43,18 +49,27 @@
         });
         Data = JSON.stringify(Data);
         localStorage.setItem("Data", Data);
+        
+        // 32 num ko data lenghtko kam ho 42 numma 
+        // (data null xaina vane katiota data xa tyo mageko xa) vako value paxadi new value haleko xainsertRow(dataLength+1); 
+        let x = document.getElementById("table").insertRow(dataLength+1);
+          let y = x.insertCell(0);
+          let z = x.insertCell(1);
+          let r = x.insertCell(2);
+
+          y.innerHTML = firstName;
+          z.innerHTML = lastName;
+          r.innerHTML = rating;
       };
+
       let displayDataInTable = () => {
         let localStorageValue = localStorage.getItem("Data");
-        // tablema row thapeko
+       
         localStorageValue = JSON.parse(localStorageValue);
-        console.log(localStorageValue);
-        console.log(localStorageValue["data"]);
-        console.log(localStorageValue["data"][0]["movieName"]);
-
+       
         // for loop lagayeara localstoragema vako data anusar table thapeko firstma tyo tablema localstorage anusarko value rakehko secondma
         for (let i = 0; i < localStorageValue.data.length; i++) {
-          let x = document.getElementById("table").insertRow(i);
+          let x = document.getElementById("table").insertRow(i+1);
           let y = x.insertCell(0);
           let z = x.insertCell(1);
           let r = x.insertCell(2);
