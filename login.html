@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <label for="userName">User Name</label>
+    <input type="text" id="userName" /><br /><br />
+    <label for="passwoord"> Password</label>
+    <input type="password" id="password" /><br />
+    <button onclick="login();">Submit</button>
+    
+
+    <script>
+      let login = () => {
+        let counter = localStorage.getItem("counter");
+        counter = Number(counter); //  counter ma vako data lai int ma change gareko
+        console.log(counter);
+        let username = document.getElementById("userName").value;
+        let password = document.getElementById("password").value;
+        if(password.length < 6){
+          alert("Password must have 6 charactor");
+          return;
+        }
+        if (counter >= 3) {
+          alert("You are blocked");
+        } else {
+          if (username == "admin" && password == "Password") {
+            localStorage.setItem("login" , true);
+              window.location.href = "../addMovie.html";
+            } else {
+              counter = counter + 1;
+              localStorage.setItem("counter", counter);
+              
+              alert("Incorrect credential");
+            }
+          }
+          console.log(counter);
+      };
+    
+    </script>
+  </body>
+</html>

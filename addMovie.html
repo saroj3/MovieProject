@@ -8,32 +8,37 @@
   </head>
   <body>
     <div id="entryform">
-      <label for="fname">First name:</label>
-      <input type="text" id="fname" name="fname" /><br /><br />
+      <label for="movieName">Movie Name:</label>
+      <input type="text" id="movieName" name="movieName" /><br /><br />
       <label for="lname">Last name:</label>
       <input type="text" id="lname" name="lname" /><br /><br />
       <label for="Rating">Rating:</label>
       <input type="number" id="Rating" name="Rating" /><br /><br />
       <button onclick="get();">submit</button>
+      <button onclick="logout();">Logout</button>
     </div>
     <div>
       <table id="table">
         <tbody>
-        <tr>
-          <th>Movie Name</th>
-          <th>Relese Date</th>
-          <th>Rating</th>
-        </tr>
+          <tr>
+            <th>Movie Name</th>
+            <th>Relese Date</th>
+            <th>Rating</th>
+          </tr>
         </tbody>
       </table>
     </div>
     <script>
+      let checkLogin = localStorage.getItem("login");
+      if (!checkLogin) {
+        window.location.href = "../login.html";
+      }
       let get = () => {
-        let dataLength; // New value lastma rakhnako lagi data length +1 garnako lagi veriable banako 
-        let firstName = document.getElementById("fname").value;
+        let dataLength; // New value lastma rakhnako lagi data length +1 garnako lagi veriable banako
+        let movieName = document.getElementById("movieName").value;
         let lastName = document.getElementById("lname").value;
         let rating = document.getElementById("Rating").value;
-        let Data = localStorage.getItem("Data");  // data veriable banayera if function lagayeko yedi purano data null xa vane 
+        let Data = localStorage.getItem("Data"); // data veriable banayera if function lagayeko yedi purano data null xa vane
         //  data rakhne thau matra banxa yedi purano value xa vane tyo data JavaScript le bujne garera rakheko
         if (Data == null) {
           Data = { data: [] };
@@ -43,33 +48,33 @@
         }
         // data aaisakepaxi tyo datalai functionma push gareko (plus gareko)
         Data["data"].push({
-          movieName: firstName,
+          movieName: movieName,
           releaseDate: lastName,
           rating: rating,
         });
         Data = JSON.stringify(Data);
         localStorage.setItem("Data", Data);
-        
-        // 32 num ko data lenghtko kam ho 42 numma 
-        // (data null xaina vane katiota data xa tyo mageko xa) vako value paxadi new value haleko xainsertRow(dataLength+1); 
-        let x = document.getElementById("table").insertRow(dataLength+1);
-          let y = x.insertCell(0);
-          let z = x.insertCell(1);
-          let r = x.insertCell(2);
 
-          y.innerHTML = firstName;
-          z.innerHTML = lastName;
-          r.innerHTML = rating;
+        // 32 num ko data lenghtko kam ho 42 numma
+        // (data null xaina vane katiota data xa tyo mageko xa) vako value paxadi new value haleko xainsertRow(dataLength+1);
+        let x = document.getElementById("table").insertRow(dataLength + 1);
+        let y = x.insertCell(0);
+        let z = x.insertCell(1);
+        let r = x.insertCell(2);
+
+        y.innerHTML = movieName;
+        z.innerHTML = lastName;
+        r.innerHTML = rating;
       };
 
       let displayDataInTable = () => {
         let localStorageValue = localStorage.getItem("Data");
-       
+
         localStorageValue = JSON.parse(localStorageValue);
-       
+
         // for loop lagayeara localstoragema vako data anusar table thapeko firstma tyo tablema localstorage anusarko value rakehko secondma
         for (let i = 0; i < localStorageValue.data.length; i++) {
-          let x = document.getElementById("table").insertRow(i+1);
+          let x = document.getElementById("table").insertRow(i + 1);
           let y = x.insertCell(0);
           let z = x.insertCell(1);
           let r = x.insertCell(2);
@@ -81,6 +86,10 @@
         }
       };
       displayDataInTable();
+      function logout() {
+        localStorage.removeItem("login");
+        window.location.href = "../login.html";
+      }
     </script>
   </body>
 </html>
