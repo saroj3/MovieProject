@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rate</title>
+  </head>
+  <body>
+    <div>
+      <table id="table">
+        <tbody>
+          <tr>
+            <th>Movie Name</th>
+            <th>Relese Date</th>
+            <th>Rating</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      let displayDataInTable = () => {
+        let localStorageValue = localStorage.getItem("Data");
+        localStorageValue = JSON.parse(localStorageValue);
+
+        // for loop lagayeara localstoragema vako data anusar table thapeko firstma tyo tablema localstorage anusarko value rakehko secondma
+        for (let i = 0; i < localStorageValue.data.length; i++) {
+          let x = document.getElementById("table").insertRow(i + 1);
+          let y = x.insertCell(0);
+          let z = x.insertCell(1);
+          let r = x.insertCell(2);
+          let m = x.insertCell(3);    //   ratingko lagi banako veriable
+
+          // tableko rowma value haleko
+          y.innerHTML = localStorageValue["data"][i]["movieName"];
+          z.innerHTML = localStorageValue["data"][i]["releaseDate"];
+         
+          rating =  document.createElement("input");   //   input element banako (slider banako)
+        //   sliderko attribute haru
+          rating.setAttribute('type', "range");
+
+          //   rating value set gareko min 1 max 10
+          rating.setAttribute('min', 1);
+          rating.setAttribute('max', 10);
+        //   +i garepaxi tableko value dherai hudai jada myrange id ni plus hudai janxa ani xuttai xuttai rating garna milxa
+          rating.setAttribute('id','myRange'+i);
+        //   setSliderValue vanne functionbanayera slide garna milne banako  (onchange vaneko event listner ho hamle slide garesi kunma garexa tha pauxa)
+          rating.onchange =   function setSliderValue() {
+        // sliding value r vearible ma rakheko xa ra film datako sidema dekhinxa
+            r.innerHTML = document.getElementById("myRange"+i).value;
+          }
+          
+          m.appendChild(rating);
+         
+        }
+    };
+      displayDataInTable();
+    </script>
+  </body>
+</html>
